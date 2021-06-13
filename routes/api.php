@@ -32,6 +32,7 @@ Route::group([
     Route::apiResource('customers', 'CustomerController', ['except' => 'update']);
     // Route::match(['PUT', 'PATCH'], 'panti', [PantiController::class, 'update'])->name('panti.update');
     Route::apiResource('transaksi', 'TransaksiController');
+    Route::get('retur', 'ReturItemController@index')->name('retur.index');
     Route::get('retur/{id}', 'ReturItemController@show')->name('retur.show');
     Route::post('retur/create', 'ReturItemController@store')->name('retur.store');
     Route::match(['PUT','PATCH'],'retur/{id}/approve','ReturItemController@update')->name('retur.approve');

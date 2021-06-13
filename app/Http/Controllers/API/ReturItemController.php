@@ -42,7 +42,7 @@ class ReturItemController extends Controller
         // jika user bertipe 0 / customer
         if ($request->user()->tipe === 0) {
 
-            $transaksi = Transaksi::where('kode_transaksi',$request->keterangan)->firstOrFail();
+            $transaksi = Transaksi::where('kode_transaksi',$request->kode_transaksi)->firstOrFail();
 
             $data = $transaksi->returItems()->create([
                 'keterangan' => $request->keterangan,

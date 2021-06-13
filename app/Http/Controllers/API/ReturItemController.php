@@ -21,10 +21,10 @@ class ReturItemController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->tipe === 0){
-            $data = ReturItem::where('user_id',Auth::user()->id)->get();
+        if($request->has('transaction_id')){
+            $data = ReturItem::where('transaction_id',$request->transaction_id)->get();
         }else{
-            $data = ReturItem::where('user_id',$request->user_id)->get();
+            $data = ReturItem::all();
         }
 
         return (new ReturItemResource($data->loadMissing('transaction', 'images')));

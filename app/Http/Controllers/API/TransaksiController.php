@@ -18,7 +18,7 @@ class TransaksiController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->tipe === 0){
+        if($request->user()->tipe === 0){
             $data = Transaksi::where('user_id',$request->user()->id)->get();
             return TransaksiResource::collection($data);
         }
@@ -44,7 +44,7 @@ class TransaksiController extends Controller
      */
     public function store(StoreTransaksi $request)
     {
-        if(Auth::user()->tipe === 0){
+        if($request->user()->tipe === 0){
             $data = Transaksi::create([
                 'kode_transaksi' => $request->kode_transaksi,
                 'nama_barang' => $request->nama_barang,

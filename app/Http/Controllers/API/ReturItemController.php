@@ -110,7 +110,7 @@ class ReturItemController extends Controller
            }
 
             //jika direktur
-        }elseif (Auth::user()->tipe === 2) {
+        }elseif ($request->user()->tipe === 2) {
             // jika retur item berstatus 1 (sudah divalidasi sales) maka terima or tolak
             if($returItem->status === 1){
                 $returItem->status = $request->isApproved ? 2 : 3;

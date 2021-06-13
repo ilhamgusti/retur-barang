@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTransaksi;
 use App\Http\Resources\TransaksiResource;
 use App\Transaksi;
 use Illuminate\Http\Request;
@@ -34,6 +35,30 @@ class TransaksiController extends Controller
     public function show(Transaksi $transaksi)
     {
         return (new TransaksiResource($transaksi->loadMissing('returItems','user')));
+    }
+
+    /**
+     * Store data of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreTransaksi $request)
+    {
+        if(Auth::user()->tipe === 0){
+            $data = Transaksi::create([
+                'kode_transaksi' => $request->kode_transaksi,
+                'nama_barang' => $request->nama_barang,
+                'tanggal_pembelian' => $request->tanggal_pembelian,
+                'user_id' => Auth::user()->id,
+            ]);
+            return (new TransaksiResource($data->loadMissing('returItems','user')));
+        }else{
+            return response()->json([
+                'message' => 'Kamu tidak dapat akses untuk menyimpan transaksi, kamu bukan customer'
+            ], 403);
+        }
+
+
     }
 
 }

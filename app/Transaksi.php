@@ -8,6 +8,19 @@ class Transaksi extends Model
 {
     protected $table = 'transaksi';
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'kode_transaksi',
+        'nama_barang',
+        'tanggal_pembelian',
+    ];
+    
+
     //setiap transaksi dimiliki 1 user
     public function user()
     {

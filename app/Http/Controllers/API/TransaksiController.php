@@ -19,7 +19,7 @@ class TransaksiController extends Controller
     public function index(Request $request)
     {
         if(Auth::user()->tipe === 0){
-            $data = Transaksi::where('user_id',Auth::user()->id)->get();
+            $data = Transaksi::where('user_id',$request->user()->id)->get();
             return TransaksiResource::collection($data);
         }
         $data = Transaksi::where('user_id',$request->userId)->get();
@@ -49,7 +49,7 @@ class TransaksiController extends Controller
                 'kode_transaksi' => $request->kode_transaksi,
                 'nama_barang' => $request->nama_barang,
                 'tanggal_pembelian' => $request->tanggal_pembelian,
-                'user_id' => Auth::user()->id,
+                'user_id' => $request->user()->id,
             ]);
             return (new TransaksiResource($data->loadMissing('returItems','user')));
         }else{

@@ -15,10 +15,10 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // jika user login bertipe sales maka list customernya;
-        if(Auth::user()->tipe === 1){
+        if($request->user()->tipe === 1){
             $data = User::where('sales_id',Auth::user()->id)->get();
             return UserResource::collection($data);
         }else{

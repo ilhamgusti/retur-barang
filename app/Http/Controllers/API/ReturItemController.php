@@ -40,7 +40,7 @@ class ReturItemController extends Controller
     public function store(StoreReturItem $request)
     {
         // jika user bertipe 0 / customer
-        if (Auth::user()->tipe === 0) {
+        if ($request->user()->tipe === 0) {
 
             $transaksi = Transaksi::where('kode_transaksi',$request->keterangan)->firstOrFail();
 
@@ -93,7 +93,7 @@ class ReturItemController extends Controller
         }
 
         //jika sales
-        if(Auth::user()->tipe === 1){
+        if($request->user()->tipe === 1){
            if($returItem->status === 0){
             $returItem->status = $request->isApproved ? 1 : 3;
             $returItem->is_valid = $request->isApproved ? true : false;

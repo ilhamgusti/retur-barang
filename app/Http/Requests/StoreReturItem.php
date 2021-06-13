@@ -32,6 +32,7 @@ class StoreReturItem extends FormRequest
             // 'validate_sales_at' => 'required|string|min:3|max:255',
             // 'validate_direktur_at' => 'required|string|min:3|max:255',
             'kode_transaksi' => 'required|string|min:3|max:255|exists:transaksi,kode_transaksi',
+            'images' => 'required',
             'images.*' => 'required|file|mimes:png,jpg,jpeg',
         ];
     }

@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - /usr/local/bin/php /home/bajd3578/repositories/retur-barang/composer.phar install
+    - /usr/local/bin/php /home/bajd3578/repositories/retur-barang/artisan optimize

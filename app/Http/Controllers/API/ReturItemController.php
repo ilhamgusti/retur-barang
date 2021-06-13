@@ -7,6 +7,7 @@ use App\Http\Requests\StoreReturItem;
 use App\Http\Requests\UpdateReturItem;
 use App\Http\Resources\ReturItemResource;
 use App\ReturItem;
+use App\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,13 +41,15 @@ class ReturItemController extends Controller
     {
         // jika user bertipe 0 / customer
         if (Auth::user()->tipe === 0) {
-            $data = ReturItem::create([
+
+            $transaksi = Transaksi::where('kode_transaksi',$request->keterangan)->firstOrFail();
+
+            $data = $transaksi->returItems()->create([
                 'keterangan' => $request->keterangan,
                 'is_valid' => false,
                 'status' => 0, // '0. belum di validasi, 1. validasi sales, 2. validasi direktur, 3. tolak'
-                'kode_transaksi' => $request->kode_transaksi,
             ]);
-
+    
             if ($request->hasfile('images')) {
                 $images = $request->file('images');
     

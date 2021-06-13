@@ -35,6 +35,7 @@ class ReturItemController extends Controller
         if (Auth::user()->tipe === 0) {
             $data = ReturItem::create([
                 'keterangan' => $request->keterangan,
+                'is_valid' => false,
                 'status' => 0, // '0. belum di validasi, 1. validasi sales, 2. validasi direktur, 3. tolak'
                 'kode_transaksi' => $request->kode_transaksi,
             ]);

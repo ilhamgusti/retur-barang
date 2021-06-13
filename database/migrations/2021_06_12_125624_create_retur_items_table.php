@@ -15,7 +15,7 @@ class CreateReturItemsTable extends Migration
     {
         Schema::create('retur_items', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_valid');
+            $table->boolean('is_valid')->default(false);
             $table->text('keterangan')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0. belum di validasi, 1. validasi sales, 2. validasi direktur, 3. tolak');
             $table->text('remarks_sales')->nullable();

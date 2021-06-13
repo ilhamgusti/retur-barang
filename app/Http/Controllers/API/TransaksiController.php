@@ -45,11 +45,10 @@ class TransaksiController extends Controller
     public function store(StoreTransaksi $request)
     {
         if($request->user()->tipe === 0){
-            $data = Transaksi::create([
+           $data = $request->user()->transaksi()->create([
                 'kode_transaksi' => $request->kode_transaksi,
                 'nama_barang' => $request->nama_barang,
                 'tanggal_pembelian' => $request->tanggal_pembelian,
-                'user_id' => $request->user()->id,
             ]);
             return (new TransaksiResource($data->loadMissing('returItems','user')));
         }else{

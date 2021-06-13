@@ -10,6 +10,7 @@ use App\ReturItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class ReturItemController extends Controller
 {
@@ -44,10 +45,8 @@ class ReturItemController extends Controller
                 $images = $request->file('images');
     
                 foreach($images as $image) {
-                    $name = $image->getClientOriginalName();
-                    $path = $image->storeAs('uploads', $name, 'public');
-
-                    $data->images()->create(['image_url' => '/storage/'.$path]);
+                    $path = $image->store('images', 'public');
+                    $data->images()->create(['image_url' => URL::asset('storage/' . $path)]);
                 }
              }
             

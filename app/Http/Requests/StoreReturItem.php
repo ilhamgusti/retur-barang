@@ -24,16 +24,18 @@ class StoreReturItem extends FormRequest
     public function rules()
     {
         return [
-            // 'is_valid' => 'required|string|email|max:255|unique:users',
-            'keterangan' => 'required|string|min:8',
-            // 'status' => 'required|string',
-            // 'remarks_sales'=> 'required',
-            // 'remarks_direktur' => 'required',
-            // 'validate_sales_at' => 'required|string|min:3|max:255',
-            // 'validate_direktur_at' => 'required|string|min:3|max:255',
-            'kode_transaksi' => 'required|string|min:3|max:255|exists:transaksi,kode_transaksi',
-            'images' => 'required|array|min:1',
-            'images.*' => 'required|file|mimes:png,jpg,jpeg',
+        'is_valid' => 'required|boolean',
+        'no_surat_jalan' => 'required|string',
+        'jenis_masalah' => 'required|string',
+        'keterangan'=> 'required|string',
+        'tanggal_pesan'=> 'required|date',
+        'tanggal_kirim'=> 'required|date',
+        'bukti_foto'=> 'required|file|mimes:png,jpg,jpeg',
+        'status'=> 'required|integer',
+        // 'remarks_sales'=> 'required',
+        // 'remarks_direktur' => 'required',
+        // 'validate_sales_at' => 'required|string|min:3|max:255',
+        // 'validate_direktur_at' => 'required|string|min:3|max:255',
         ];
     }
 }

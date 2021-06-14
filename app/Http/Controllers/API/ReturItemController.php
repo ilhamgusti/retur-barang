@@ -28,7 +28,7 @@ class ReturItemController extends Controller
             $data = ReturItem::all();
         }
 
-        return (new ReturItemResource($data->loadMissing('transaction', 'images')));
+        return (new ReturItemResource($data->loadMissing('sales', 'customer')));
     }
 
     /**
@@ -41,25 +41,25 @@ class ReturItemController extends Controller
     {
         // jika user bertipe 0 / customer
         if ($request->user()->tipe === 0) {
-
-            $transaksi = Transaksi::where('kode_transaksi',$request->kode_transaksi)->firstOrFail();
-
-            $data = $transaksi->returItems()->create([
-                'keterangan' => $request->keterangan,
-                'is_valid' => false,
-                'status' => 0, // '0. belum di validasi, 1. validasi sales, 2. validasi direktur, 3. tolak'
-            ]);
-    
-            if ($request->hasfile('images')) {
-                $images = $request->file('images');
-    
-                foreach($images as $image) {
-                    $path = $image->store('images', 'public');
-                    $data->images()->create(['image_url' => URL::asset('storage/' . $path)]);
-                }
+            if ($request->hasfile('bukti_foto')) {
+                $image = $request->file('bukti_foto');
+                $path = $image->store('images', 'public');
+                $data = $request->user()->returItems()->create([
+                    'is_valid' => false,
+                    'no_surat_jalan' => $request->no_surat_jalan,
+                    'jenis_masalah' => $request->jenis_masalah,
+                    'keterangan' => $request->keterangan,
+                    'tanggal_pesan' => $request->tanggal_pesan,
+                    'tanggal_kirim' => $request->tanggal_pesan,
+                    'bukti_foto' => URL::asset('storage/' . $path),
+                    'status' => 0,
+                    // 'remarks_direktur',
+                    // 'validate_sales_at',
+                    // 'validate_direktur_at',
+                ]);
+                return (new ReturItemResource($data->loadMissing('sales', 'customer')));
              }
             
-            return (new ReturItemResource($data->loadMissing('transaction', 'images')));
         } else {
             return response()->json([
                 'message' => 'Kamu tidak dapat menyimpan data retur Item, kamu bukan Customer.'
@@ -75,7 +75,7 @@ class ReturItemController extends Controller
      */
     public function show(ReturItem $returItem)
     {
-        return (new ReturItemResource($returItem->loadMissing('transaction', 'images')));
+        return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
     }
 
     /**
@@ -89,21 +89,21 @@ class ReturItemController extends Controller
     {
         //jika status retur ditolak, maka langsung mengembalikan data resource tanpa update
         if($returItem->status === 3){
-            return (new ReturItemResource($returItem->loadMissing('transaction', 'images')));
+            return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
         }
 
         //jika sales
         if($request->user()->tipe === 1){
            if($returItem->status === 0){
-            $returItem->status = $request->isApproved ? 1 : 3;
-            $returItem->is_valid = $request->isApproved ? true : false;
+            $returItem->status = $request->is_valid ? 1 : 3;
+            $returItem->is_valid = $request->is_valid ? true : false;
             if($request->has('remarks_sales')){
                 $returItem->remarks_sales = $request->remarks_sales;
             }
             $returItem->validate_sales_at = Carbon::now();
             $returItem->save();
 
-            return (new ReturItemResource($returItem->loadMissing('transaction', 'images')));
+            return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
 
            }else{
                return 'sudah divalidasi';
@@ -113,15 +113,15 @@ class ReturItemController extends Controller
         }elseif ($request->user()->tipe === 2) {
             // jika retur item berstatus 1 (sudah divalidasi sales) maka terima or tolak
             if($returItem->status === 1){
-                $returItem->status = $request->isApproved ? 2 : 3;
-                $returItem->is_valid = $request->isApproved ? true : false;
+                $returItem->status = $request->is_valid ? 2 : 3;
+                $returItem->is_valid = $request->is_valid ? true : false;
                 if($request->has('remarks_direktur')){
                     $returItem->remarks_direktur = $request->remarks_direktur;
                 }
                 $returItem->validate_direktur_at = Carbon::now();
                 $returItem->save();
 
-                return (new ReturItemResource($returItem->loadMissing('transaction', 'images')));
+                return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
             }elseif ($returItem->status === 0) {
                 return "harus divalidasi sales terlebih dahulu";
             }else{

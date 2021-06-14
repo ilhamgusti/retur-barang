@@ -16,7 +16,12 @@ class CreateReturItemsTable extends Migration
         Schema::create('retur_items', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_valid')->default(false);
-            $table->text('keterangan')->nullable();
+            $table->string('no_surat_jalan');
+            $table->text('jenis_masalah');
+            $table->text('keterangan');
+            $table->date('tanggal_pesan');
+            $table->date('tanggal_kirim');
+            $table->string('bukti_foto');
             $table->tinyInteger('status')->default(0)->comment('0. belum di validasi, 1. validasi sales, 2. validasi direktur, 3. tolak');
             $table->text('remarks_sales')->nullable();
             $table->text('remarks_direktur')->nullable();
@@ -25,8 +30,11 @@ class CreateReturItemsTable extends Migration
             $table->timestamps();
 
 
-            $table->unsignedBigInteger('transaction_id')->nullable();
-            $table->foreign('transaction_id')->references('id')->on('transaksi');
+            $table->unsignedBigInteger('sales_id')->nullable()->comment('sales id customer');
+            $table->foreign('sales_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('customer_id')->nullable()->comment('customer id customer');
+            $table->foreign('customer_id')->references('id')->on('users');
         });
     }
 

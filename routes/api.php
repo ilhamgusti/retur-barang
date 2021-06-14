@@ -29,7 +29,7 @@ Route::group([
     // 'prefix'     => 'reports',
     // 'as' => 'api.'
 ],function () {
-    Route::apiResource('customers', 'CustomerController', ['except' => 'update']);
+    Route::apiResource('customers', 'CustomerController', ['except' => ['update','show','destroy']]);
     // Route::match(['PUT', 'PATCH'], 'panti', [PantiController::class, 'update'])->name('panti.update');
     Route::get('retur', 'ReturItemController@index')->name('retur.index');
     Route::get('retur/{id}', 'ReturItemController@show')->name('retur.show');

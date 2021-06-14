@@ -24,7 +24,7 @@ class StoreReturItem extends FormRequest
     public function rules()
     {
         return [
-        'is_valid' => 'required|boolean',
+        // 'is_valid' => 'required|boolean',
         'no_surat_jalan' => 'required|string',
         'jenis_masalah' => 'required|string',
         'keterangan'=> 'required|string',

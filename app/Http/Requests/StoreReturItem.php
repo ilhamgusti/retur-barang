@@ -31,7 +31,7 @@ class StoreReturItem extends FormRequest
         'tanggal_pesan'=> 'required|date',
         'tanggal_kirim'=> 'required|date',
         'bukti_foto'=> 'required|file|mimes:png,jpg,jpeg',
-        'status'=> 'required|integer',
+        // 'status'=> 'required|integer',
         // 'remarks_sales'=> 'required',
         // 'remarks_direktur' => 'required',
         // 'validate_sales_at' => 'required|string|min:3|max:255',

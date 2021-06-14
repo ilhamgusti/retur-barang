@@ -22,8 +22,10 @@ class ReturItemController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('transaction_id')){
-            $data = ReturItem::where('transaction_id',$request->transaction_id)->get();
+        if ($request->user()->tipe === 0) {
+            $data = $request->user()->returItems()->get();
+        }elseif ($request->user()->tipe === 1) {
+            $data = $request->user()->returItemToSales()->get();
         }else{
             $data = ReturItem::all();
         }

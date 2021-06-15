@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReturItem;
 use App\Http\Requests\UpdateReturItem;
 use App\Http\Resources\ReturItemResource;
+use App\Mail\ApprovalApprove;
+use App\Mail\ApprovalReject;
 use App\ReturItem;
 use App\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 
 class ReturItemController extends Controller
@@ -104,7 +107,9 @@ class ReturItemController extends Controller
             }
             $returItem->validate_sales_at = Carbon::now();
             $returItem->save();
-
+            if(!$request->is_valid){
+                Mail::to($returItem->customer()->email)->send(new ApprovalReject($returItem));
+            }
             return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
 
            }else{
@@ -122,7 +127,11 @@ class ReturItemController extends Controller
                 }
                 $returItem->validate_direktur_at = Carbon::now();
                 $returItem->save();
-
+                if(!$request->is_valid){
+                    Mail::to($returItem->customer()->email)->send(new ApprovalReject($returItem));
+                }else{
+                    Mail::to($returItem->customer()->email)->send(new ApprovalApprove($returItem));
+                }
                 return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
             }elseif ($returItem->status === 0) {
                 return "harus divalidasi sales terlebih dahulu";

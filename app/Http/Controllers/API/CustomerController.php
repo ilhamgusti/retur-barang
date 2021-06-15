@@ -47,7 +47,7 @@ class CustomerController extends Controller
                 'no_tel' => 'required',
                 'nama' => 'required|string|min:3|max:255'
             ]);
-            $customer = $request->user()->customer()->create([
+            $customer = $request->user()->customers()->create([
                 'email' => $validatedData['email'],
                 'password' => Hash::make($validatedData['password']),
                 'alamat'=> $validatedData['alamat'],

@@ -26,6 +26,7 @@ class StoreReturItem extends FormRequest
         return [
         // 'is_valid' => 'required|boolean',
         'no_surat_jalan' => 'required|string',
+        'sales_id' => 'required|integer',
         'jenis_masalah' => 'required|string',
         'keterangan'=> 'required|string',
         'tanggal_pesan'=> 'required|date',

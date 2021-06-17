@@ -43,7 +43,7 @@ class User extends Authenticatable
     // 1 user bisa memiliki banyak transaksi namun hanya yang bertipe customer atau tipe = 0
     public function returItems()
     {
-        return $this->hasMany(Transaksi::class, 'user_id');
+        return $this->hasMany(User::class, 'user_id');
     }
 
     // 1 sales bisa memiliki banyak customer namun hanya yang bertipe sales atau tipe = 1

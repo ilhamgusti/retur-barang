@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\CustomerController;
-use App\Http\Controllers\API\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

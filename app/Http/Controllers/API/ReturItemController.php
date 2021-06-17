@@ -9,10 +9,8 @@ use App\Http\Resources\ReturItemResource;
 use App\Mail\ApprovalApprove;
 use App\Mail\ApprovalReject;
 use App\ReturItem;
-use App\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 

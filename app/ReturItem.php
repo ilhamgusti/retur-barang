@@ -43,7 +43,7 @@ class ReturItem extends Model
         // 1 user bisa memiliki banyak transaksi namun hanya yang bertipe customer atau tipe = 0
         public function customer()
         {
-            return $this->belongsTo(User::class, 'user_id','id');
+            return $this->belongsTo(User::class, 'customers_id','id');
         }
     
         // 1 sales bisa memiliki banyak customer namun hanya yang bertipe sales atau tipe = 1

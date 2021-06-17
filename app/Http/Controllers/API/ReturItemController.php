@@ -71,6 +71,15 @@ class ReturItemController extends Controller
         }   
     }
 
+    public function destroy(ReturItem $returItem)
+    {
+        $returItem->delete();
+        return response()->json([
+            'code'=>203,
+            'message' => 'Success Delete Data'
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *

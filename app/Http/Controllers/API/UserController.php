@@ -25,7 +25,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function update(User $user)
     {
         //
     }
@@ -39,5 +39,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return response()->json([
+            'code'=>203,
+            'message' => 'Success Delete User'
+        ]);
     }
 }

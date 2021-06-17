@@ -45,7 +45,8 @@ class CustomerController extends Controller
                 'tipe' => 'required|string',
                 'alamat'=> 'required',
                 'no_tel' => 'required',
-                'nama' => 'required|string|min:3|max:255'
+                'nama' => 'required|string|min:3|max:255',
+                'sales_id' => 'required|integer'
             ]);
             $customer = $request->user()->customers()->create([
                 'email' => $validatedData['email'],
@@ -55,6 +56,8 @@ class CustomerController extends Controller
                 'tipe' => $validatedData['tipe'],
                 'no_tel'=> $validatedData['no_tel']
             ]);
+
+            $customer->sales()->associate($request->sales_id);
 
             // $token = $user->createToken('auth_token')->plainTextToken;
     

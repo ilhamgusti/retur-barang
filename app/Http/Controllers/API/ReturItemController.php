@@ -60,6 +60,7 @@ class ReturItemController extends Controller
                     // 'validate_sales_at',
                     // 'validate_direktur_at',
                 ]);
+                $data->sales()->attach($request->salesId);
                 return (new ReturItemResource($data->loadMissing('sales', 'customer')));
              }
             

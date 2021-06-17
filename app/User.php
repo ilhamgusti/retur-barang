@@ -6,7 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\ReturItem;
+use App\User as SelfUser;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
@@ -55,12 +56,12 @@ class User extends Authenticatable
     // 1 customer dimiliki oleh 1 sales namun hanya yang bertipe customer atau tipe = 0
     public function sales()
     {
-        return $this->belongsTo(User::class,'sales_id','id');
+        return $this->belongsTo(SelfUser::class,'sales_id','id');
     }
     // 1 customer dimiliki oleh 1 sales namun hanya yang bertipe customer atau tipe = 0
     public function customers()
     {
-        return $this->hasMany(User::class,'sales_id','id');
+        return $this->hasMany(SelfUser::class,'sales_id','id');
     }
 
 

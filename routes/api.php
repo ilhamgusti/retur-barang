@@ -32,7 +32,7 @@ Route::group([
     // Route::match(['PUT', 'PATCH'], 'panti', [PantiController::class, 'update'])->name('panti.update');
     Route::get('retur', 'ReturItemController@index')->name('retur.index');
     Route::delete('retur/{id}', 'ReturItemController@destroy')->name('retur.destroy');
-    Route::get('retur/{id}', 'ReturItemController@show')->name('retur.show');
+    Route::get('retur/{returItem}', 'ReturItemController@show')->name('retur.show');
     Route::post('retur/create', 'ReturItemController@store')->name('retur.store');
     Route::match(['PUT','PATCH'],'retur/{id}/approve','ReturItemController@update')->name('retur.approve');
 });

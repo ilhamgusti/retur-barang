@@ -19,6 +19,7 @@ Route::post('/register', 'AuthController@register')->name('user.register');
 Route::post('/login', 'AuthController@login')->name('user.login');
 Route::post('/logout', 'AuthController@logout')->middleware('auth:sanctum')->name('user.logout');
 Route::get('/me', 'AuthController@me')->middleware('auth:sanctum')->name('user.me');
+Route::put('/me', 'API/UserController@update')->middleware('auth:sanctum')->name('user.update');
 Route::get('/artisan', 'ArtisanCallController@index');
 
 Route::group([
@@ -28,7 +29,7 @@ Route::group([
     // 'as' => 'api.'
 ],function () {
     Route::apiResource('customers', 'CustomerController', ['except' => ['update','show','destroy']]);
-    Route::apiResource('users', 'UserController', ['only' => ['update','destroy']]);
+    Route::apiResource('users', 'UserController', ['only' => ['index','destroy']]);
     // Route::match(['PUT', 'PATCH'], 'panti', [PantiController::class, 'update'])->name('panti.update');
     Route::get('retur', 'ReturItemController@index')->name('retur.index');
     Route::delete('retur/{returItem}', 'ReturItemController@destroy')->name('retur.destroy');

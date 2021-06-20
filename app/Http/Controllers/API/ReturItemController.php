@@ -116,7 +116,7 @@ class ReturItemController extends Controller
             $returItem->validate_sales_at = Carbon::now();
             $returItem->save();
             if(!$request->is_valid){
-                Mail::to($returItem->customer->email)->send(new ApprovalReject($returItem));
+                Mail::to($returItem->customer->email)->send(new ApprovalReject($returItem->toArray()));
             }
             return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
 
@@ -136,9 +136,9 @@ class ReturItemController extends Controller
                 $returItem->validate_direktur_at = Carbon::now();
                 $returItem->save();
                 if(!$request->is_valid){
-                    Mail::to($returItem->customer->email)->send(new ApprovalReject($returItem));
+                    Mail::to($returItem->customer->email)->send(new ApprovalReject($returItem->toArray()));
                 }else{
-                    Mail::to($returItem->customer->email)->send(new ApprovalApprove($returItem));
+                    Mail::to($returItem->customer->email)->send(new ApprovalApprove($returItem->toArray()));
                 }
                 return (new ReturItemResource($returItem->loadMissing('sales', 'customer')));
             }elseif ($returItem->status === 0) {

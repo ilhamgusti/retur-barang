@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Http\Transformers\UserTransformer;
+use App\Http\Requests\UpdateUser;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateUser $request)
     {
 
         DB::beginTransaction();

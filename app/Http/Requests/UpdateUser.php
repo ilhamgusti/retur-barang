@@ -13,7 +13,7 @@ class UpdateUser extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nama' => 'sometimes|required|string',
+            'email' => 'sometimes|required|string|email',
+            'alamat' => 'sometimes|required|string',
+            'no_tel' => 'sometimes|required',
+            'password' => 'sometimes|required',
         ];
     }
 }

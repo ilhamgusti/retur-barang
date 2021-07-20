@@ -10,6 +10,7 @@ use App\Mail\ApprovalApprove;
 use App\Mail\ApprovalReject;
 use App\ReturItem;
 use Carbon\Carbon;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;

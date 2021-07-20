@@ -60,7 +60,8 @@ class ReturItemController extends Controller
                     // 'validate_sales_at',
                     // 'validate_direktur_at',
                 ]);
-                $data->sales()->associate($request->sales_id);
+                $sales = User::findOrFail($request->sales_id);
+                $data->sales()->associate($sales);
                 return (new ReturItemResource($data->loadMissing('sales', 'customer')));
              }
             

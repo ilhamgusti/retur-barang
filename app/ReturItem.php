@@ -7,6 +7,8 @@ use App\User;
 
 class ReturItem extends Model
 {
+
+    protected $with = ['sales','customer'];
     /**
      * The attributes that are mass assignable.
      *

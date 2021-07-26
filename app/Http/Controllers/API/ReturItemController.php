@@ -32,7 +32,7 @@ class ReturItemController extends Controller
             $data = ReturItem::all();
         }
 
-        dd($data);
+        // dd($data);
         return (new ReturItemResource($data->loadMissing('sales', 'customer')));
     }
 
